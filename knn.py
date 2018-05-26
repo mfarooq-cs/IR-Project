@@ -6,6 +6,7 @@ import scipy as sc
 import matplotlib.pyplot as plt
 from prettyprint import pp
 import os, re
+import sys
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.naive_bayes import BernoulliNB, GaussianNB, MultinomialNB
 from sklearn.metrics import confusion_matrix, f1_score, accuracy_score, precision_score, recall_score, classification_report
@@ -15,7 +16,8 @@ from sklearn.grid_search import GridSearchCV
 from datetime import datetime as dt
 #from ipy_table import *
 
-root_path = 'emails/'
+
+root_path = sys.argv[1]
 #top_view folders
 folders = [root_path + folder + '/' for folder in os.listdir(root_path)]
 
