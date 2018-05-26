@@ -1,0 +1,362 @@
+============================= 1st Result ==========================================
+E:\Project\python2 Rocchio.py legalcases/
+Data Path:  legalcases/
+------------------------------------------------------------------
+Classes found:  ['citations_class', 'citations_summ']
+Loading files for each class
+citations_class :  2754
+citations_summ :  3890
+------------------------------------------------------------------
+Train Ratio:  0.75
+Tokens after pre processing:  43309
+------------------------------------------------------------------
+Starting Rocchio's Training
+Time taken for training rocchio : 0:00:29.715000
+Centroid:  [0.01278838] , Distance: 0.0
+Centroid:  [0.02274212] , Distance: 0.6923579406054206
+------------------------------------------------------------------
+Starting Perdiction.
+Time taken for perdiction using rocchio:  0:00:00.140000
+Perdiction Results:  legalcases/citations_summ/08_846.xml --> citations_summ True
+
+Starting perdicting test documents.
+Time taken for testing a pool of test documents:  0:00:05.766000
+------------------------------------------------------------------
+Starting Analysis.
+------------------------------------------------------------------
+Class:  citations_class
+precision =  1.0
+recall =  0.984285714286
+accuracy =  0.993381468111
+------------------------------------------------------------------
+Class:  citations_summ
+precision =  0.988694758479
+recall =  1.0
+accuracy =  0.993381468111
+------------------------------------------------------------------
+F measure 0.993197939514
+
+================================ 2nd Result =========================================
+E:\Project\python2 Rocchio.py emails/
+Data Path:  emails/
+------------------------------------------------------------------
+Classes found:  ['baseball', 'computer', 'electronics', 'religion']
+Loading files for each class
+baseball :  200
+computer :  200
+electronics :  200
+religion :  200
+------------------------------------------------------------------
+Train Ratio:  0.75
+Tokens after pre processing:  19459
+------------------------------------------------------------------
+Starting Rocchio's Training
+Time taken for training rocchio : 0:00:00.906000
+Centroid:  [0.03724689] , Distance: 0.0
+Centroid:  [0.03552719] , Distance: 0.27192107900700807
+Centroid:  [0.03601981] , Distance: 0.2094447200846464
+Centroid:  [0.03607913] , Distance: 0.34774836910339774
+------------------------------------------------------------------
+Starting Perdiction.
+Time taken for perdiction using rocchio:  0:00:00
+Perdiction Results:  emails/computer/9568 --> computer True
+
+Starting perdicting test documents.
+Time taken for testing a pool of test documents:  0:00:00.141000
+------------------------------------------------------------------
+Starting Analysis.
+------------------------------------------------------------------
+Class:  baseball
+precision =  0.88
+recall =  0.977777777778
+accuracy =  0.965
+------------------------------------------------------------------
+Class:  computer
+precision =  0.94
+recall =  0.903846153846
+accuracy =  0.96
+------------------------------------------------------------------
+Class:  electronics
+precision =  0.74
+recall =  0.948717948718
+accuracy =  0.925
+------------------------------------------------------------------
+Class:  religion
+precision =  1.0
+recall =  0.78125
+accuracy =  0.93
+------------------------------------------------------------------
+F measure 0.889134518385
+
+============================ 3rd Result =============================================
+E:\Project\python2 Rocchio.py sentencedata/
+Data Path:  sentencedata/
+------------------------------------------------------------------
+Classes found:  ['arxiv', 'jdm', 'plos']
+Loading files for each class
+arxiv :  300
+jdm :  300
+plos :  300
+------------------------------------------------------------------
+Train Ratio:  0.75
+Tokens after pre processing:  18695
+------------------------------------------------------------------
+Starting Rocchio's Training
+Time taken for training rocchio : 0:00:01.984000
+Centroid:  [0.01803645] , Distance: 0.0
+Centroid:  [0.01867835] , Distance: 0.27642817033108885
+Centroid:  [0.01320472] , Distance: 0.2578022436873239
+------------------------------------------------------------------
+Starting Perdiction.
+Time taken for perdiction using rocchio:  0:00:00
+Perdiction Results:  sentencedata/jdm/344.txt --> jdm True
+
+Starting perdicting test documents.
+Time taken for testing a pool of test documents:  0:00:00.313000
+------------------------------------------------------------------
+Starting Analysis.
+------------------------------------------------------------------
+Class:  arxiv
+precision =  0.8
+recall =  1.0
+accuracy =  0.933333333333
+------------------------------------------------------------------
+Class:  jdm
+precision =  0.853333333333
+recall =  1.0
+accuracy =  0.951111111111
+------------------------------------------------------------------
+Class:  plos
+precision =  1.0
+recall =  0.742574257426
+accuracy =  0.884444444444
+------------------------------------------------------------------
+F measure 0.887341641838
+
+============================== 4th Result ===========================================
+E:\Project\python2 NaiveBayes.py legalcases/
+Data Path:  legalcases/
+------------------------------------------------------------------
+Classes found:  ['citations_class', 'citations_summ']
+Loading files for each class
+citations_class :  2754
+citations_summ :  3890
+------------------------------------------------------------------
+Train Ratio:  0.75
+Tokens after pre processing:  43309
+------------------------------------------------------------------
+Calculating Naive Bayes Probabilities
+Time taken for training Naive Bayes : 0:00:01.156000
+------------------------------------------------------------------
+Starting Perdiction.
+Time taken for perdiction using rocchio:  0:00:00.016000
+Perdiction Results:  legalcases/citations_summ/08_846.xml --> citations_summ True
+
+Starting perdicting test documents.
+Time taken for testing a pool of test documents:  0:00:24.793000
+------------------------------------------------------------------
+Starting Analysis.
+------------------------------------------------------------------
+Class:  citations_class
+precision =  1.0
+recall =  0.833131801693
+accuracy =  0.916967509025
+------------------------------------------------------------------
+Class:  citations_summ
+precision =  0.858170606372
+recall =  1.0
+accuracy =  0.916967509025
+F measure 0.916321771312
+
+============================== 5th Result ===========================================
+E:\Project\python2 NaiveBayes.py emails/
+Data Path:  emails/
+------------------------------------------------------------------
+Classes found:  ['baseball', 'computer', 'electronics', 'religion']
+Loading files for each class
+baseball :  200
+computer :  200
+electronics :  200
+religion :  200
+------------------------------------------------------------------
+Train Ratio:  0.75
+Text Preprocessing.....
+Tokens after pre processing:  19459
+------------------------------------------------------------------
+Calculating Naive Bayes Probabilities
+Time taken for training Naive Bayes : 0:00:00.625000
+------------------------------------------------------------------
+Starting Perdiction.
+Time taken for perdiction using rocchio:  0:00:00
+Perdiction Results:  emails/computer/9568 --> computer True
+
+Starting perdicting test documents.
+Time taken for testing a pool of test documents:  0:00:00.656000
+------------------------------------------------------------------
+Starting Analysis.
+------------------------------------------------------------------
+Class:  baseball
+precision =  1.0
+recall =  1.0
+accuracy =  1.0
+------------------------------------------------------------------
+Class:  computer
+precision =  0.66
+recall =  1.0
+accuracy =  0.915
+------------------------------------------------------------------
+Class:  electronics
+precision =  1.0
+recall =  0.746268656716
+accuracy =  0.915
+------------------------------------------------------------------
+Class:  religion
+precision =  1.0
+recall =  1.0
+accuracy =  1.0
+F measure 0.912470394398
+
+============================== 6th Result ===========================================
+E:\Project\python2 NaiveBayes.py sentencedata/
+Data Path:  sentencedata/
+------------------------------------------------------------------
+Classes found:  ['arxiv', 'jdm', 'plos']
+Loading files for each class
+arxiv :  300
+jdm :  300
+plos :  300
+------------------------------------------------------------------
+Train Ratio:  0.75
+Text Preprocessing.....
+Tokens after pre processing:  18695
+------------------------------------------------------------------
+Calculating Naive Bayes Probabilities
+Time taken for training Naive Bayes : 0:00:00.546000
+------------------------------------------------------------------
+Starting Perdiction.
+Time taken for perdiction using rocchio:  0:00:00.016000
+Perdiction Results:  sentencedata/jdm/344.txt --> jdm True
+
+Starting perdicting test documents.
+Time taken for testing a pool of test documents:  0:00:01.407000
+------------------------------------------------------------------
+Starting Analysis.
+------------------------------------------------------------------
+Class:  arxiv
+precision =  0.96
+recall =  1.0
+accuracy =  0.986666666667
+------------------------------------------------------------------
+Class:  jdm
+precision =  1.0
+recall =  0.961538461538
+accuracy =  0.986666666667
+------------------------------------------------------------------
+Class:  plos
+precision =  0.96
+recall =  0.96
+accuracy =  0.973333333333
+F measure 0.973327997866
+
+=======================================================================
+E:\>python2 knn.py
+Data Path:  emails/
+------------------------------------------------------------------
+Classes found:  ['baseball', 'computer', 'electronics', 'religion']
+Loading files for each class
+baseball :  200
+computer :  200
+electronics :  200
+religion :  200
+------------------------------------------------------------------
+Train Ratio:  0.75
+Text Preprocessing.....
+600
+200
+(600, 19420)
+(200, 19420)
+(600, 19420)
+(200, 19420)
+-----------------------------------------------------------
+knn with  5  neighbors
+------------------------------------------------------------------
+Training classifier  KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+           weights='uniform')
+Training time:  0:00:00
+------------------------------------------------------------------
+Testing classifier
+Testing time:  0:00:00.047000
+Classification Analysis:
+"             precision    recall  f1-score   support
+
+   baseball       0.78      0.78      0.78        50
+   computer       0.75      0.86      0.80        50
+electronics       0.84      0.62      0.71        50
+   religion       0.89      1.00      0.94        50
+
+avg / total       0.82      0.81      0.81       200
+"
+F1 Score : 0.8099445555832558
+Accuracy Score:  0.815
+Confusion matrix:
+[[39  8  3  0]
+ [ 2 43  3  2]
+ [ 9  6 31  4]
+ [ 0  0  0 50]]
+
+-----------------------------------------------------------
+knn with  10  neighbors
+------------------------------------------------------------------
+Training classifier  KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=10, p=2,
+           weights='uniform')
+Training time:  0:00:00.016000
+------------------------------------------------------------------
+Testing classifier
+Testing time:  0:00:00.047000
+Classification Analysis:
+"             precision    recall  f1-score   support
+
+   baseball       0.85      0.82      0.84        50
+   computer       0.85      0.90      0.87        50
+electronics       0.91      0.58      0.71        50
+   religion       0.75      1.00      0.85        50
+
+avg / total       0.84      0.82      0.82       200
+"
+F1 Score : 0.818134757379032
+Accuracy Score:  0.825
+Confusion matrix:
+[[41  5  3  1]
+ [ 2 45  0  3]
+ [ 5  3 29 13]
+ [ 0  0  0 50]]
+
+-----------------------------------------------------------
+knn with  15  neighbors
+------------------------------------------------------------------
+Training classifier  KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=15, p=2,
+           weights='uniform')
+Training time:  0:00:00
+------------------------------------------------------------------
+Testing classifier
+Testing time:  0:00:00.047000
+Classification Analysis:
+"             precision    recall  f1-score   support
+
+   baseball       0.88      0.84      0.86        50
+   computer       0.96      0.90      0.93        50
+electronics       0.90      0.56      0.69        50
+   religion       0.68      1.00      0.81        50
+
+avg / total       0.85      0.82      0.82       200
+"
+F1 Score : 0.8206968865709583
+Accuracy Score:  0.825
+Confusion matrix:
+[[42  0  3  5]
+ [ 1 45  0  4]
+ [ 5  2 28 15]
+ [ 0  0  0 50]]
