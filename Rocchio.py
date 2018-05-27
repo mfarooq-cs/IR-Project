@@ -9,9 +9,6 @@ import sys
 
 from util import *
 
-#index label in the dictionary
-idx_lbl = 'idx'
-dfreq_lbl = "docfreq"
 
 class Rocchio:
     """

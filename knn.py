@@ -1,21 +1,16 @@
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-import numpy as np
-import scipy as sc
 import matplotlib.pyplot as plt
 from prettyprint import pp
 import os
 import re
 import sys
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.naive_bayes import BernoulliNB, GaussianNB, MultinomialNB
 from sklearn.metrics import confusion_matrix, f1_score, accuracy_score, precision_score, recall_score, classification_report
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import LinearSVC, NuSVC, SVC
-from sklearn.grid_search import GridSearchCV
 from datetime import datetime as dt
-#from ipy_table import *
+# from ipy_table import *
+
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 root_path = sys.argv[1]
@@ -76,7 +71,7 @@ train_path, test_path = train_test_split(train_test_ratio, class_titles, files)
 pattern = re.compile(r'([a-zA-Z]+|[0-9]+(\.[0-9]+)?)')
 
 
-def cleanupText(path):
+def cleanup_text(path):
     """
     This method will read in a text file and try to cleanup its text.
 
@@ -112,10 +107,10 @@ print "Text Preprocessing....."
 
 for cl in class_titles:
     for path in train_path[cl]:
-        train_arr.append(cleanupText(path))
+        train_arr.append(cleanup_text(path))
         train_lbl.append(cl)
     for path in test_path[cl]:
-        test_arr.append(cleanupText(path))
+        test_arr.append(cleanup_text(path))
         test_lbl.append(cl)
 
 print "Training Samples:", len(train_arr)
@@ -136,7 +131,7 @@ test_tfmat = tfidf.transform(test_mat)
 print "Testing TFIDF matrix:", test_tfmat.shape
 
 
-def testClassifier(x_train, y_train, x_test, y_test, clf):
+def test_classifier(x_train, y_train, x_test, y_test, clf):
     """
     this method will first train the classifier on the training data
     and will then test the trained classifier on test data.
@@ -211,13 +206,13 @@ def testClassifier(x_train, y_train, x_test, y_test, clf):
     return metrics
 
 metrics_dict = []
-#'name', 'metrics'
+# 'name', 'metrics'
 
 # for nn in [5, 10, 15]:
 for nn in [5, 10, 15]:
     print '-----------------------------------------------------------'
     print 'knn with ', nn, ' neighbors'
     knn = KNeighborsClassifier(n_neighbors=nn)
-    knn_me = testClassifier(train_tfmat, train_lbl, test_tfmat, test_lbl, knn)
+    knn_me = test_classifier(train_tfmat, train_lbl, test_tfmat, test_lbl, knn)
     metrics_dict.append({'name': '5NN', 'metrics': knn_me})
     print ' '

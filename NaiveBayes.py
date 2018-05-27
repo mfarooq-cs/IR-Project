@@ -1,16 +1,10 @@
 from __future__ import division
 import numpy as np
-import scipy as sc
-#from prettyprint import pp
 import os
-import re
 from datetime import datetime as dt
 from util import *
 import sys
 
-#index label in the dictionary
-idx_lbl = 'idx'
-dfreq_lbl = "docfreq"
 
 class NaiveBayes:
     """
@@ -23,6 +17,7 @@ class NaiveBayes:
 
     lbl = argmax_{k} p(C_k | x) === argmax_{k} p(x | C_k) * p(C_k)
     """
+
     def __init__(self, class_labels, tdict):
         """
         constructor will get a list of the class labels, a dictionary of terms (as created before).
@@ -36,14 +31,17 @@ class NaiveBayes:
                a dictionary of terms and number of occurences of term in each class
         """
         self.k = len(class_labels)
-        self.priors = np.zeros((self.k, 1))             #prior probabilities for each class
-        self.cctermp = np.zeros((len(tdict), self.k))   #class conditional term probabilities
-        self.ctermcnt = np.zeros((self.k, 1))           # total number of terms in a class
+        # prior probabilities for each class
+        self.priors = np.zeros((self.k, 1))
+        # class conditional term probabilities
+        self.cctermp = np.zeros((len(tdict), self.k))
+        # total number of terms in a class
+        self.ctermcnt = np.zeros((self.k, 1))
         self.lbl_dict = dict(zip(class_labels, range(self.k)))
         self.class_labels = class_labels
         self.tdict = tdict
 
-    def train(self, class_counts, tfidf_but_smoothing = True):
+    def train(self, class_counts, tfidf_but_smoothing=True):
         """
         this will learn the prior and class conditional probabilities for the set of documents
         for learning class prior probabilities, it will use the class_counts list
@@ -83,12 +81,14 @@ class NaiveBayes:
         if not tfidf_but_smoothing:
             for i in range(len(self.tdict)):
                 for j in range(self.k):
-                    self.cctermp[i,j] = (self.cctermp[i,j] + 1) * 1.0 / (self.ctermcnt[j] + len(self.tdict))
+                    self.cctermp[i, j] = (
+                        self.cctermp[i, j] + 1) * 1.0 / (self.ctermcnt[j] + len(self.tdict))
         else:
             for i in range(len(self.tdict)):
                 for j in range(self.k):
-                    if self.cctermp[i,j] > 0:
-                        self.cctermp[i,j] = (self.cctermp[i,j] + 1) * np.log(self.ctermcnt[j] * 1.0 / self.cctermp[i,j])
+                    if self.cctermp[i, j] > 0:
+                        self.cctermp[i, j] = (
+                            self.cctermp[i, j] + 1) * np.log(self.ctermcnt[j] * 1.0 / self.cctermp[i, j])
 
     def predict(self, doc):
         """
@@ -109,12 +109,11 @@ class NaiveBayes:
 
         class_score = [0] * self.k
         for i in range(self.k):
-            log_class_conditional = np.log(self.cctermp[:,i] + 1e-14)
-            class_score[i] = log_class_conditional.transpose().dot(doc_vec)[0] + np.log(self.priors[i,0])
-
+            log_class_conditional = np.log(self.cctermp[:, i] + 1e-14)
+            class_score[i] = log_class_conditional.transpose().dot(
+                doc_vec)[0] + np.log(self.priors[i, 0])
 
         return self.class_labels[class_score.index(max(class_score))]
-
 
     def predictPool(self, doc_collection):
         """
@@ -208,24 +207,25 @@ def calculateMetrics(class_labels, lbl_pool):
 
     return metrics
 
-def main(datapath):
+
+def run_naive_bayse(datapath):
 
     print "Data Path: ", datapath
     print "------------------------------------------------------------------"
 
     root_path = datapath
 
-    #top_view folders
+    # top_view folders
     folders = [root_path + folder + '/' for folder in os.listdir(root_path)]
 
-    #there are only 4 classes
+    # there are only 4 classes
     class_titles = os.listdir(root_path)
 
     print "Classes found: ", class_titles
 
     print "Loading files for each class"
 
-    #list of all the files belonging to each class
+    # list of all the files belonging to each class
     files = {}
     for folder, title in zip(folders, class_titles):
         files[title] = [folder + f for f in os.listdir(folder)]
@@ -240,7 +240,7 @@ def main(datapath):
 
     print "Text Preprocessing....."
     pool = createTokenPool(class_titles, train)
-    #print len(pool[class_titles[0]])
+    # print len(pool[class_titles[0]])
     tdict = createDictionary(class_titles, pool)
 
     print "Tokens after pre processing: ", len(tdict)
@@ -289,7 +289,8 @@ def main(datapath):
         print "Class: ", cl
         P = (metrics[cl]["tp"] * 1.0 / (metrics[cl]["tp"] + metrics[cl]["fp"]))
         R = (metrics[cl]["tp"] * 1.0 / (metrics[cl]["tp"] + metrics[cl]["fn"]))
-        Acc = ((metrics[cl]["tp"] + metrics[cl]["tn"])* 1.0 / (metrics[cl]["tp"] + metrics[cl]["fp"] + metrics[cl]["fn"] + metrics[cl]["tn"]))
+        Acc = ((metrics[cl]["tp"] + metrics[cl]["tn"]) * 1.0 / (metrics[cl]
+                                                                ["tp"] + metrics[cl]["fp"] + metrics[cl]["fn"] + metrics[cl]["tn"]))
         F_1 = 2 * R * P / (R + P)
         total_F += F_1
         print 'precision = ', P
@@ -298,15 +299,72 @@ def main(datapath):
 
     print 'F measure', (total_F / len(class_titles))
 
-    # saveDictToFile(tdict, 'dictionary.csv')
-    #
-    # redict = readFileToDict('dictionary.csv')
-    # print len(redict)
-    #
-    # print redict == tdict
 
+def classify_doc(datapath, doc):
+
+    print "Data Path: ", datapath
+    print "------------------------------------------------------------------"
+
+    root_path = datapath
+
+    # top_view folders
+    folders = [root_path + folder + '/' for folder in os.listdir(root_path)]
+
+    # there are only 4 classes
+    class_titles = os.listdir(root_path)
+
+    print "Classes found: ", class_titles
+
+    print "Loading files for each class"
+
+    # list of all the files belonging to each class
+    files = {}
+    for folder, title in zip(folders, class_titles):
+        files[title] = [folder + f for f in os.listdir(folder)]
+        print title, ": ", len(files[title])
+
+    train_test_ratio = 0.75
+
+    print "------------------------------------------------------------------"
+    print "Train Ratio: ", train_test_ratio
+
+    train, test = train_test_split(train_test_ratio, class_titles, files)
+
+    print "Text Preprocessing....."
+    pool = createTokenPool(class_titles, train)
+    # print len(pool[class_titles[0]])
+    tdict = createDictionary(class_titles, pool)
+
+    print "Tokens after pre processing: ", len(tdict)
+
+    print "------------------------------------------------------------------"
+    print "Calculating Naive Bayes Probabilities"
+
+    dumbBayes = NaiveBayes(class_titles, tdict)
+    class_count = [len(train[cl]) for cl in class_titles]
+
+    start = dt.now()
+    dumbBayes.train(class_count, False)
+    end = dt.now()
+
+    print 'Time taken for training Naive Bayes :', end - start
+
+    print "------------------------------------------------------------------"
+    print "Starting Perdiction."
+
+    start = dt.now()
+    lbl = dumbBayes.predict(tokenizeDoc(doc))
+    end = dt.now()
+
+    print 'Time taken for perdiction using rocchio: ', end - start
+
+    print 'Perdiction Results: ', doc, '-->', lbl
 
 
 if __name__ == "__main__":
     datapath = sys.argv[1]
-    main(datapath)
+    if len(sys.argv) == 2:
+        run_naive_bayse(datapath)
+    elif len(sys.argv) == 3:
+        test_doc = sys.argv[2]
+        classify_doc(datapath, test_doc)
