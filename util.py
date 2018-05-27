@@ -29,6 +29,7 @@ def tokenizeDoc(doc_address, min_len = 0, remove_numerics=True):
     tokens: list
             list of tokens from the input document according to the filtering criteria specified
     """
+    # print type(doc_address)
     from string import punctuation, digits
     tokens = []
     try:

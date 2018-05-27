@@ -216,7 +216,7 @@ def calculateMetrics(class_labels, lbl_pool):
     return metrics
 
 
-def main(datapath):
+def run_rocchio(datapath):
 
     print "Data Path: ", datapath
     print "------------------------------------------------------------------"
@@ -248,7 +248,7 @@ def main(datapath):
     train, test = train_test_split(train_test_ratio, class_titles, files)
 
     pool = createTokenPool(class_titles, train)
-    #print len(pool[class_titles[0]])
+    # print len(pool[class_titles[0]])
     tdict = createDictionary(class_titles, pool)
     print "Tokens after pre processing: ", len(tdict)
 
@@ -264,7 +264,7 @@ def main(datapath):
     print 'Time taken for training rocchio :', end - start
 
     for c in rocchio.centroids:
-        print "Centroid: ",c[0], ", Distance:", np.linalg.norm(c - rocchio.centroids[0])
+        print "Centroid: ", c[0], ", Distance:", np.linalg.norm(c - rocchio.centroids[0])
 
     print "------------------------------------------------------------------"
     print "Starting Perdiction."
@@ -309,15 +309,73 @@ def main(datapath):
     print "------------------------------------------------------------------"
     print 'F measure', (total_F / len(class_titles))
 
-    # saveDictToFile(tdict, 'dictionary.csv')
-    #
-    # redict = readFileToDict('dictionary.csv')
-    # print len(redict)
-    #
-    # print redict == tdict
 
+def classify_doc(datapath, doc):
+
+    print "Data Path: ", datapath
+    print "------------------------------------------------------------------"
+
+    root_path =  datapath
+    #top_view folders
+    folders = [root_path + folder + '/' for folder in os.listdir(root_path)]
+
+    #there are only 4 classes
+    class_titles = os.listdir(root_path)
+
+    print "Classes found: " , class_titles
+
+    print "Loading files for each class"
+
+    #list of all the files belonging to each class
+    files = {}
+    for folder, title in zip(folders, class_titles):
+        files[title] = [folder + f for f in os.listdir(folder)]
+        print title, ": ", len(files[title])
+
+    train_test_ratio = 0.75
+
+    print "------------------------------------------------------------------"
+    print "Train Ratio: " , train_test_ratio
+
+    print "Text Preprocessing....."
+
+    train, test = train_test_split(train_test_ratio, class_titles, files)
+
+    pool = createTokenPool(class_titles, train)
+    # print len(pool[class_titles[0]])
+    tdict = createDictionary(class_titles, pool)
+    print "Tokens after pre processing: ", len(tdict)
+
+    print "------------------------------------------------------------------"
+    print "Starting Rocchio's Training"
+
+    rocchio = Rocchio(class_titles, tdict)
+
+    start = dt.now()
+    rocchio.train(pool)
+    end = dt.now()
+
+    print 'Time taken for training rocchio :', end - start
+
+    for c in rocchio.centroids:
+        print "Centroid: ", c[0], ", Distance:", np.linalg.norm(c - rocchio.centroids[0])
+
+    print "------------------------------------------------------------------"
+    print "Starting Perdiction."
+
+    start = dt.now()
+    lbl = rocchio.predict(tokenizeDoc(doc))
+    end = dt.now()
+
+    print 'Time taken for perdiction using rocchio: ', end - start
+
+    print 'Perdiction Result: ', doc, '-->', lbl
 
 
 if __name__ == "__main__":
     datapath = sys.argv[1]
-    main(datapath)
+    if len(sys.argv) == 2:
+        run_rocchio(datapath)
+    elif len(sys.argv) == 3:
+        test_doc = sys.argv[2]
+        classify_doc(datapath, test_doc)
