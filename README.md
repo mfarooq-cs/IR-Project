@@ -7,7 +7,7 @@ Steps to run the project
 	sudo apt-get install pip
 3. Install project specific python packages
 	pip install -r requirements.txt
-4. Now, you can run any classifier by using
+4. Now, you can run any classifier(naive-bayseian, rocchio and knn) by using
 	python classifier.py dataset
 
 5. For Naive-Baysiean classifier
