@@ -1,7 +1,7 @@
 # IR-Project
 Course project of Information Retrieval
 
-Project Setup
+**Project Setup**
 1. Install python 2.7
 ```
 sudo apt-get update
@@ -32,11 +32,16 @@ python Rocchio.py Datasets/sentensedata/
 python knn.py Datasets/emails/
 ```
 
-Step-wise Implementation
+**Step-wise Implementation**
+
 1. Analyze data and find classes from data
+
 2. Split data in 75:25 ratio
+
 3. Text Preprocessing
+
 4. Create dictionary of tokens
+
 5. Classifier Training
 ```
 	a. Calculate Class Probabilities for Naive Bayesian
@@ -44,6 +49,9 @@ Step-wise Implementation
 	c. Calclulate K nearest neighbours for KNN
 ```
 6. Test a single unseen doc
+
 7. Test a pool of 25% unseen docs
-8. Calculate Metrics
-9. Precision, Recall & Accuracy
+
+8. Calculate Evaluation Metrics
+
+9. Calculate Precision, Recall & Accuracy
