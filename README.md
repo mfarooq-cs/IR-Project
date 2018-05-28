@@ -55,3 +55,16 @@ python knn.py Datasets/emails/
 8. Calculate Evaluation Metrics
 
 9. Calculate Precision, Recall & Accuracy
+
+**Single Doc Classification**
+```
+python classifier.py dataset doc_to_classify
+```
+1. For Naive-Baysiean classifier
+```
+python NaiveBayes.py Datasets/legalcases/
+```
+2. For Rocchio classifier
+```
+python Rocchio.py Datasets/sentensedata/
+```
