@@ -62,9 +62,9 @@ python classifier.py dataset doc_to_classify
 ```
 1. For Naive-Baysiean classifier
 ```
-python NaiveBayes.py Datasets/legalcases/
+python NaiveBayes.py Datasets/legalcases/ test_data/doc
 ```
 2. For Rocchio classifier
 ```
-python Rocchio.py Datasets/sentensedata/
+python Rocchio.py Datasets/sentensedata/ test_data/doc
 ```
